@@ -1,0 +1,34 @@
+{
+    "proxy": "127.0.0.1:8888",
+    "viewurlprefix": "http://geobretagne.fr/geonetwork/apps/search/?uuid=",
+    "xmlurlprefix": "http://geobretagne.fr/geonetwork/srv/fre/xml_iso19139?uuid=",
+    "cswurl": "http://geobretagne.fr/geonetwork/srv/eng/csw-publication",
+    "domain": "geobretagne.fr",
+    "username": "xxx",
+    "password": "xxx",
+    "usewms": true,
+    "usewfs": true,
+    "usewcs": true,
+    "fileIdentifierWfsFormat": "fr-geobretagne.{name}.wfs",
+    "fileIdentifierWmsFormat": "fr-geobretagne.{name}.wms",
+    "fileIdentifierWcsFormat": "fr-geobretagne.{name}.wcs",
+    "namespaces": [
+        "ign",
+        "geob_loc"
+    ],
+    "contact": {
+        "OrganisationName": "partenariat GéoBretagne",
+        "address": "10 rue Maurice Fabre",
+        "city": "RENNES",
+        "postalCode": "35065",
+        "administrativeArea": "Ille-et-Vilaine",
+        "country": "FRANCE",
+        "email": "info@geobretagne.fr",
+        "phone": "+22399334556",
+        "url": "http://geobretagne.fr/"
+    }
+    "service_keywords": [
+        "GéoBretagne",
+        "Bretagne"
+    ]
+}

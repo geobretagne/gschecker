@@ -1,0 +1,40 @@
+{
+    "viewurlprefix": "http://www.geopicardie.fr/geonetwork/apps/search/?uuid=",
+    "xmlurlprefix": "http://www.geopicardie.fr/geonetwork/srv/fre/xml_iso19139?uuid=",
+    "cswurl": "http://www.geopicardie.fr/geonetwork/srv/eng/csw-publication",
+    "domain": "www.geopicardie.fr",
+    "username": "xxx",
+    "password": "xxx",
+    "usewms": true,
+    "usewfs": true,
+    "usewcs": true,
+    "fileIdentifierWfsFormat": "fr-geopicardie.{name}.wfs",
+    "fileIdentifierWmsFormat": "fr-geopicardie.{name}.wms",
+    "fileIdentifierWcsFormat": "fr-geopicardie.{name}.wcs",
+    "namespaces": [
+        "agglo_beauvais",
+        "agglo_st_quentin",
+        "autres",
+        "autres_wms_only",
+        "cc_canton_oulchy",
+        "cc_pays_bray",
+        "cc_pays_noyonnais",
+        "cenp",
+        "dept02",
+        "dept60",
+        "geopicardie",
+        "olv",
+        "reg22",
+        "uccsa"
+    ],
+    "contact": {
+        "organisationName": "GéoPicardie",
+        "email": "contact@geopicardie.fr",
+        "url": "http://www.geopicardie.fr/"
+    },
+    "service_keywords": [
+        "GéoPicardie",
+        "Picardie",
+        "Hauts-de-France"
+    ]
+}

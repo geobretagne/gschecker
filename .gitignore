@@ -1,0 +1,23 @@
+gsconfig.json
+
+*.pyc
+
+# database file
+app/mdchecker/db/*.db
+
+# virtualenv dir
+venv/*
+
+# results dir
+results/*
+
+# IntelliJ project files
+.idea
+*.iml
+out
+gen
+
+# OSX template
+.DS_Store
+.AppleDouble
+.LSOverride
