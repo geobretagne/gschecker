@@ -64,17 +64,17 @@ class Featuretype():
         if self.json['featureType'].has_key('metadataLinks'):
             xmlmd = filter((lambda x: x['type']=='text/xml'), self.json['featureType']['metadataLinks']['metadataLink'])
             if len(xmlmd) > 0:
-                #~ try:
-                mdurl = xmlmd[0]['content']
-                uxml = self.gs.getxml(mdurl).encode('utf8')
-                xml = etree.tostring(etree.XML(uxml), encoding='UTF-8', xml_declaration=False)
-                self.md = Inspirobot.MD(xml)
-                self.mdUrl = urlparse.urljoin(cfg['xmlurlprefix'], self.md.fileIdentifier)
-                logging.info('%s.%s : fileIdentifier %s' % (self.json['featureType']['namespace']['name'], self.json['featureType']['name'], self.md.fileIdentifier))
-                return self.md
-                #~ except:
-                    #~ logging.error('%s.%s : can\'t resolve %s'%(self.json['featureType']['namespace']['name'], self.json['featureType']['name'], mdurl))
-                    #~ return None
+                try:
+                    mdurl = xmlmd[0]['content']
+                    uxml = self.gs.getxml(mdurl).encode('utf8')
+                    xml = etree.tostring(etree.XML(uxml), encoding='UTF-8', xml_declaration=False)
+                    self.md = Inspirobot.MD(xml)
+                    self.mdUrl = urlparse.urljoin(cfg['xmlurlprefix'], self.md.fileIdentifier)
+                    logging.info('%s.%s : fileIdentifier %s' % (self.json['featureType']['namespace']['name'], self.json['featureType']['name'], self.md.fileIdentifier))
+                    return self.md
+                except:
+                    logging.error('%s.%s : can\'t resolve %s'%(self.json['featureType']['namespace']['name'], self.json['featureType']['name'], mdurl))
+                    return None
             else:
                 logging.error('%s.%s : no metadataURL' % (self.json['featureType']['namespace']['name'], self.json['featureType']['name']))
                 return None
@@ -95,17 +95,17 @@ class Coverage():
         if self.json['coverage'].has_key('metadataLinks'):
             xmlmd = filter((lambda x: x['type']=='text/xml'), self.json['coverage']['metadataLinks']['metadataLink'])
             if len(xmlmd) > 0:
-                #~ try:
-                mdurl = xmlmd[0]['content']
-                uxml = self.gs.getxml(mdurl).encode('utf8')
-                xml = etree.tostring(etree.XML(uxml), encoding='UTF-8', xml_declaration=False)
-                self.md = Inspirobot.MD(xml)
-                self.mdUrl = urlparse.urljoin(cfg['xmlurlprefix'], self.md.fileIdentifier)
-                logging.info('%s.%s : fileIdentifier %s' % (self.json['coverage']['namespace']['name'], self.json['coverage']['name'], self.md.fileIdentifier))
-                return self.md
-                #~ except:
-                    #~ logging.error('%s.%s : can\'t resolve %s'%(self.json['featureType']['namespace']['name'], self.json['featureType']['name'], mdurl))
-                    #~ return None
+                try:
+                    mdurl = xmlmd[0]['content']
+                    uxml = self.gs.getxml(mdurl).encode('utf8')
+                    xml = etree.tostring(etree.XML(uxml), encoding='UTF-8', xml_declaration=False)
+                    self.md = Inspirobot.MD(xml)
+                    self.mdUrl = urlparse.urljoin(cfg['xmlurlprefix'], self.md.fileIdentifier)
+                    logging.info('%s.%s : fileIdentifier %s' % (self.json['coverage']['namespace']['name'], self.json['coverage']['name'], self.md.fileIdentifier))
+                    return self.md
+                except:
+                    logging.error('%s.%s : can\'t resolve %s'%(self.json['featureType']['namespace']['name'], self.json['featureType']['name'], mdurl))
+                    return None
             else:
                 logging.error('%s.%s : no metadataURL' % (self.json['coverage']['namespace']['name'], self.json['coverage']['name']))
                 return None
