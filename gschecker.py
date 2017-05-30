@@ -36,8 +36,11 @@ cfg = {
     ]
 }
 
-
-logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger('gschecker')
+fh = logging.FileHandler('gschecker.log')
+fh.setLevel(logging.DEBUG)
+logger.addHandler(fh)
+#logging.basicConfig(level=logging.DEBUG)
 
 cfgjson = 'gsconfig.json'
 if not(os.path.isfile(cfgjson)):
@@ -70,13 +73,13 @@ class Featuretype():
                     xml = etree.tostring(etree.XML(uxml), encoding='UTF-8', xml_declaration=False)
                     self.md = Inspirobot.MD(xml)
                     self.mdUrl = urlparse.urljoin(cfg['xmlurlprefix'], self.md.fileIdentifier)
-                    logging.info('%s.%s : fileIdentifier %s' % (self.json['featureType']['namespace']['name'], self.json['featureType']['name'], self.md.fileIdentifier))
+                    logger.info('%s.%s : fileIdentifier %s' % (self.json['featureType']['namespace']['name'], self.json['featureType']['name'], self.md.fileIdentifier))
                     return self.md
                 except:
-                    logging.error('%s.%s : can\'t resolve %s'%(self.json['featureType']['namespace']['name'], self.json['featureType']['name'], mdurl))
+                    logger.error('%s.%s : can\'t resolve %s'%(self.json['featureType']['namespace']['name'], self.json['featureType']['name'], mdurl))
                     return None
             else:
-                logging.error('%s.%s : no metadataURL' % (self.json['featureType']['namespace']['name'], self.json['featureType']['name']))
+                logger.error('%s.%s : no metadataURL' % (self.json['featureType']['namespace']['name'], self.json['featureType']['name']))
                 return None
 
 
@@ -101,13 +104,13 @@ class Coverage():
                     xml = etree.tostring(etree.XML(uxml), encoding='UTF-8', xml_declaration=False)
                     self.md = Inspirobot.MD(xml)
                     self.mdUrl = urlparse.urljoin(cfg['xmlurlprefix'], self.md.fileIdentifier)
-                    logging.info('%s.%s : fileIdentifier %s' % (self.json['coverage']['namespace']['name'], self.json['coverage']['name'], self.md.fileIdentifier))
+                    logger.info('%s.%s : fileIdentifier %s' % (self.json['coverage']['namespace']['name'], self.json['coverage']['name'], self.md.fileIdentifier))
                     return self.md
                 except:
-                    logging.error('%s.%s : can\'t resolve %s'%(self.json['featureType']['namespace']['name'], self.json['featureType']['name'], mdurl))
+                    logger.error('%s.%s : can\'t resolve %s'%(self.json['featureType']['namespace']['name'], self.json['featureType']['name'], mdurl))
                     return None
             else:
-                logging.error('%s.%s : no metadataURL' % (self.json['coverage']['namespace']['name'], self.json['coverage']['name']))
+                logger.error('%s.%s : no metadataURL' % (self.json['coverage']['namespace']['name'], self.json['coverage']['name']))
                 return None
 
 
@@ -186,23 +189,23 @@ class Workspace():
         try:
             url = 'services/wfs/workspaces/%s/settings.json?quietOnNotFound=1'%name
             self.wfs_json = self.gs.rest(url)
-            logging.info('got WFS REST conf for %s', name)
+            logger.info('got WFS REST conf for %s', name)
         except Exception, err:
-            logging.error("can't read wfs workspace %s, %s" % (self.name, err))
+            logger.error("can't read wfs workspace %s, %s" % (self.name, err))
 
         try:
             self.wcs_json = self.gs.rest('services/wcs/workspaces/%s/settings.json?quietOnNotFound=1' % name)
-            logging.info('got WCS REST conf for %s', name)
+            logger.info('got WCS REST conf for %s', name)
         except Exception, err:
-            logging.error("cant' read wcs workspace %s, %s" % (self.name, err))
+            logger.error("cant' read wcs workspace %s, %s" % (self.name, err))
 
         try:
             url = 'services/wms/workspaces/%s/settings.json?quietOnNotFound=1' % name
             self.wms_json = self.gs.rest(url)
-            logging.info('got WMS REST conf for %s', name)
+            logger.info('got WMS REST conf for %s', name)
 
         except Exception, err:
-            logging.error("cant' read wms workspace %s, %s" % (self.name, err))
+            logger.error("cant' read wms workspace %s, %s" % (self.name, err))
 
         try:
             # list featuretypes
@@ -230,7 +233,7 @@ class Workspace():
                 self.mditems['wfs']['dateMD'] = datetime.datetime.now().strftime('%Y-%m-%d')
                 self.mditems['wfs']['dateCreation'] = datetime.datetime.now().strftime('%Y-%m-%d')
                 self.mditems['wfs']['dateRevision'] =   self.mditems['wfs']['dateCreation']
-                self.mditems['wfs']['getCapabilitiesUrl'] = urlparse.urljoin('http://'+cfg['domain'], '/geoserver/'+name+'/wfs?SERVICE=WFS&amp;REQUEST=GetCapabilities&amp;')
+                self.mditems['wfs']['getCapabilitiesUrl'] = urlparse.urljoin('https://'+cfg['domain'], '/geoserver/'+name+'/wfs?SERVICE=WFS&amp;REQUEST=GetCapabilities&amp;')
                 self.mditems['wfs']['title'] = self.wfs_json['wfs']['title']
                 self.mditems['wfs']['abstract'] = self.wfs_json['wfs']['abstrct']
                 self.mditems['wfs']['bbox']['minx'] = min_x_ft
@@ -256,7 +259,7 @@ class Workspace():
                 self.mditems['wcs']['dateMD'] = datetime.datetime.now().strftime('%Y-%m-%d')
                 self.mditems['wcs']['dateCreation'] = datetime.datetime.now().strftime('%Y-%m-%d')
                 self.mditems['wcs']['dateRevision'] =   self.mditems['wcs']['dateCreation']
-                self.mditems['wcs']['getCapabilitiesUrl'] = urlparse.urljoin('http://'+cfg['domain'], '/geoserver/'+name+'/wcs?SERVICE=WCS&amp;REQUEST=GetCapabilities&amp;')
+                self.mditems['wcs']['getCapabilitiesUrl'] = urlparse.urljoin('https://'+cfg['domain'], '/geoserver/'+name+'/wcs?SERVICE=WCS&amp;REQUEST=GetCapabilities&amp;')
                 self.mditems['wcs']['title'] = self.wcs_json['wcs']['title']
                 self.mditems['wcs']['abstract'] = self.wcs_json['wcs']['abstrct']
                 self.mditems['wcs']['bbox']['minx'] = min_x_cv
@@ -272,7 +275,7 @@ class Workspace():
             self.mditems['wms']['dateMD'] = datetime.datetime.now().strftime('%Y-%m-%d')
             self.mditems['wms']['dateCreation'] = datetime.datetime.now().strftime('%Y-%m-%d')
             self.mditems['wms']['dateRevision'] =   self.mditems['wms']['dateCreation']
-            self.mditems['wms']['getCapabilitiesUrl'] = urlparse.urljoin('http://'+cfg['domain'], '/geoserver/'+name+'/wms?SERVICE=WMS&amp;REQUEST=GetCapabilities&amp;')
+            self.mditems['wms']['getCapabilitiesUrl'] = urlparse.urljoin('https://'+cfg['domain'], '/geoserver/'+name+'/wms?SERVICE=WMS&amp;REQUEST=GetCapabilities&amp;')
             self.mditems['wms']['title'] = self.wms_json['wms']['title']
             self.mditems['wms']['abstract'] = self.wms_json['wms']['abstrct']
 
@@ -298,7 +301,7 @@ class Workspace():
                 self.mditems['wms']['success'] = True
 
         except Exception, err:
-            logging.error("can't read workspace %s, %s"%(self.name, err))
+            logger.error("can't read workspace %s, %s"%(self.name, err))
 
     def __str__(self):
         return self.name
@@ -389,8 +392,8 @@ class GS():
         return json.loads(result)
 
     def rest(self, restpath):
-        url = urlparse.urljoin('http://'+self.domain, '/geoserver/rest/'+restpath)
-        logging.debug("fetching %s"%url)
+        url = urlparse.urljoin('https://'+self.domain, '/geoserver/rest/'+restpath)
+        logger.debug("fetching %s"%url)
         response = self.admin_opener.open(url)
         result = response.read().decode("UTF-8")
         response.close()

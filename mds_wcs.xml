@@ -119,6 +119,13 @@
               </gmd:dateType>
             </gmd:CI_Date>
           </gmd:date>
+		 <gmd:identifier>
+			<gmd:MD_Identifier>
+				<gmd:code>
+					<gco:CharacterString>{{wcs.getCapabilitiesUrl}}</gco:CharacterString>
+				</gmd:code>
+			</gmd:MD_Identifier>
+		 </gmd:identifier>
         </gmd:CI_Citation>
       </gmd:citation>
       <gmd:abstract>
@@ -201,12 +208,12 @@
           <gmd:thesaurusName>
             <gmd:CI_Citation>
               <gmd:title>
-                <gco:CharacterString>RÈGLEMENT (CE) No 1205/2008</gco:CharacterString>
+                <gco:CharacterString>INSPIRE Service taxonomy</gco:CharacterString>
               </gmd:title>
               <gmd:date>
                 <gmd:CI_Date>
                   <gmd:date>
-                    <gco:Date>2008-12-03</gco:Date>
+                    <gco:Date>2013-03-26</gco:Date>
                   </gmd:date>
                   <gmd:dateType>
                     <gmd:CI_DateTypeCode
@@ -242,7 +249,7 @@
       <gmd:resourceConstraints>
         <gmd:MD_LegalConstraints>
           <gmd:useLimitation>
-            <gco:CharacterString>Aucune condition ne s’applique</gco:CharacterString>
+            <gco:CharacterString>Réutilisation libre sous réserve des mentions obligatoires présentes dans chaque métadonnée.</gco:CharacterString>
           </gmd:useLimitation>
           <gmd:accessConstraints>
             <gmd:MD_RestrictionCode
@@ -485,6 +492,37 @@
               </gmd:explanation>
               <gmd:pass>
                 <gco:Boolean>0</gco:Boolean>
+              </gmd:pass>
+            </gmd:DQ_ConformanceResult>
+          </gmd:result>
+        </gmd:DQ_DomainConsistency>
+      </gmd:report>
+      <gmd:report>
+        <gmd:DQ_DomainConsistency>
+          <gmd:result>
+            <gmd:DQ_ConformanceResult>
+              <gmd:specification>
+                <gmd:CI_Citation>
+                  <gmd:title>
+                    <gco:CharacterString>Technical Guidance for the implementation of INSPIRE Download Services - level3 - v3.0</gco:CharacterString>
+                  </gmd:title>
+                  <gmd:date>
+                    <gmd:CI_Date>
+                      <gmd:date>
+                        <gco:Date>2011-12-06</gco:Date>
+                      </gmd:date>
+                      <gmd:dateType>
+                        <gmd:CI_DateTypeCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#CI_DateTypeCode" codeListValue="publication" />
+                      </gmd:dateType>
+                    </gmd:CI_Date>
+                  </gmd:date>
+                </gmd:CI_Citation>
+              </gmd:specification>
+              <gmd:explanation>
+                <gco:CharacterString>Conforme</gco:CharacterString>
+              </gmd:explanation>
+              <gmd:pass>
+                <gco:Boolean>1</gco:Boolean>
               </gmd:pass>
             </gmd:DQ_ConformanceResult>
           </gmd:result>
